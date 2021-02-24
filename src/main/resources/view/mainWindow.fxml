@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1288.0" style="-fx-background-color: (255, 255, 225);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.ControllerMainWindow">
+   <children>
+      <TableView fx:id="tableClients" layoutY="38.0" prefHeight="511.0" prefWidth="1035.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0">
+        <columns>
+          <TableColumn fx:id="columnID" prefWidth="35.0" text="ID" />
+          <TableColumn fx:id="columnLastName" prefWidth="72.0" text="Фамилия" />
+            <TableColumn fx:id="columnFirstName" text="Имя" />
+            <TableColumn fx:id="columnPatronymic" prefWidth="83.0" text="Отчество" />
+            <TableColumn fx:id="columnBirthday" prefWidth="127.0" text="Дата рождения" />
+            <TableColumn fx:id="columnPhone" prefWidth="69.0" text="Телефон" />
+            <TableColumn fx:id="columnEmail" prefWidth="59.0" text="Email" />
+            <TableColumn fx:id="columnDateReg" prefWidth="111.0" text="Дата добавления" />
+            <TableColumn fx:id="columnLastDate" prefWidth="189.0" text="Дата последнего посещения" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+            <TableColumn fx:id="columnCountDate" minWidth="0.0" prefWidth="151.0" text="Количество посещений" />
+            <TableColumn fx:id="columnTegs" minWidth="0.0" prefWidth="60.0" text="Теги" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="9.0" style="-fx-text-fill: Tw Cen MT;" text="Клиенты">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Pane layoutX="1074.0" layoutY="38.0" prefHeight="493.0" prefWidth="200.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.rightAnchor="14.0">
+         <children>
+            <Button layoutX="5.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonRegNewClient" prefHeight="40.0" prefWidth="191.0" style="-fx-background-color: orange;" text="Зарегистрировать клиента">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="quantityRows" layoutX="31.0" layoutY="330.0" onAction="#buttonQuantityRows" prefHeight="25.0" prefWidth="153.0" promptText="Кол-во записей:" style="-fx-background-color: orange;" />
+            <Button layoutX="31.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonAllRows" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: orange;" text="Показать все записи" />
+            <Label layoutX="31.0" layoutY="402.0" prefHeight="20.0" prefWidth="153.0" style="-fx-text-fill: Tw Cen MT;" text="Колличествов записей:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelSizeListClients" alignment="CENTER" contentDisplay="CENTER" layoutX="45.0" layoutY="422.0" prefHeight="17.0" prefWidth="125.0" style="-fx-text-fill: Tw Cen MT;" textAlignment="CENTER" />
+            <Button layoutX="6.0" layoutY="62.0" mnemonicParsing="false" onAction="#buttonDelete" prefHeight="40.0" prefWidth="191.0" style="-fx-background-color: orange;" text="Удалить клиента">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Label fx:id="labelID" layoutX="14.0" layoutY="569.0" opacity="0.0" prefHeight="17.0" prefWidth="31.0" />
+   </children>
+</AnchorPane>
