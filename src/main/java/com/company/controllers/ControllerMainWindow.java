@@ -22,13 +22,15 @@ import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Set;
 
 public class ControllerMainWindow {
 
     ObservableList<Client> listClients = FXCollections.observableArrayList();
     ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200);
-    ObservableList<ClientService> listClientService = FXCollections.observableArrayList();
 
     private int maxClientSize;
 
@@ -69,7 +71,7 @@ public class ControllerMainWindow {
     private TableColumn<Client, Date> columnDateReg;
 
     @FXML
-    private TableColumn<Client, Date> columnLastDate;
+    private TableColumn<Client, String> columnLastDate;
 
     @FXML
     private TableColumn<Client, Integer> columnCountDate;
@@ -101,8 +103,22 @@ public class ControllerMainWindow {
         columnEmail.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getEmail()));
         columnDateReg.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getRegistrationDate()));
         columnCountDate.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getClientServices().size()));
+        
+        columnLastDate.setCellValueFactory(c -> {
+            Set<ClientService> clientServices = c.getValue().getClientServices();
+            String str = "";
+            if (clientServices.size() != 0) {
+                Date date = clientServices.stream().max(
+                        Comparator.comparing(ClientService::getStartTime)).get().getStartTime();
+                new SimpleDateFormat("yyyy-MM-dd").format(date);
+                return new SimpleObjectProperty<>(str = date.toString());
+            }
+                return new SimpleObjectProperty<>("");
+        });
+        
 
-        tableClients.getSelectionModel().selectedItemProperty().addListener((observableValue, client, t1) -> showPersonDetail(t1));
+        tableClients.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, client, t1) -> showPersonDetail(t1));
     }
 
     public void showPersonDetail(Client client){
@@ -111,7 +127,6 @@ public class ControllerMainWindow {
     public void initClients(){
         DaoImpl<Client, Integer> daoClients = new ServiceDaoImpClient(factory);
         listClients.addAll(daoClients.readAll());
-        factory.close();
     }
 
     public void cutRows(){
@@ -163,4 +178,5 @@ public class ControllerMainWindow {
         cutRows();
         labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
     }
+
 }

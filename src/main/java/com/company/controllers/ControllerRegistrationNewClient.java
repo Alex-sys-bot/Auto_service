@@ -16,9 +16,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,6 +100,16 @@ public class ControllerRegistrationNewClient {
 
         labelStatus.setTextFill(Color.GREEN);
         labelStatus.setText("Пользователь добавлен:)");
+    }
+
+
+    @FXML
+    public void buttonSelectPathToPhoto(){
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Выбор фотографии");
+        File file = chooser.showOpenDialog(new Stage());
+        if (file != null)
+            txtPhotoPath.setText(file.getAbsolutePath());
     }
 
 }

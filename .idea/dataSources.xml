@@ -6,7 +6,15 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/auto_service</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="auto_service@localhost [2]" uuid="ecde4ea3-7064-4ea3-81c4-f46e31b5c703">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/auto_service</jdbc-url>
       <driver-properties>
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
