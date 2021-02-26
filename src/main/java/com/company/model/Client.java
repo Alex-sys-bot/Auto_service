@@ -49,9 +49,6 @@ public class Client {
     @OneToMany(mappedBy = "clients",fetch = FetchType.EAGER)
     private Set<ClientService> clientServices;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "client")
-    private Set<Tag> tags;
 
     @Override
     public String toString() {

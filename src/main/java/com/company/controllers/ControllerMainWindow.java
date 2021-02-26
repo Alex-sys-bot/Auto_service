@@ -12,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,7 +27,6 @@ import java.util.Set;
 public class ControllerMainWindow {
 
     ObservableList<Client> listClients = FXCollections.observableArrayList();
-    ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200);
 
     private int maxClientSize;
 
@@ -80,17 +76,19 @@ public class ControllerMainWindow {
     private TableColumn<Client, String> columnTegs;
 
     @FXML
+    private Pagination pagination;
+
+    @FXML
     private Label labelSizeListClients;
 
     @FXML
     private ComboBox<Integer> quantityRows;
 
+    private int totalPage;
+
 
     public void initialize(){
-        quantityRows.setItems(listQuantityRows);
-
         initClients();
-        maxClientSize = listClients.size();
         labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
 
         tableClients.setItems(listClients);
@@ -115,32 +113,65 @@ public class ControllerMainWindow {
             }
                 return new SimpleObjectProperty<>("");
         });
-        
 
-        tableClients.getSelectionModel().selectedItemProperty().addListener(
-                (observableValue, client, t1) -> showPersonDetail(t1));
+
+//        comboBox;
+        ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200,listClients.size());
+        maxClientSize = listClients.size();
+        quantityRows.setItems(listQuantityRows);
+        quantityRows.setValue(listQuantityRows.get(0));
+
+
+
+        quantityRows.valueProperty().addListener((obj, oldValue, newValue) -> {
+            int valueComboBox = quantityRows.getValue();
+            if (quantityRows.getValue() > listClients.size()){
+                quantityRows.setValue(listClients.size());
+                newValue = listClients.size();
+            }
+            totalPage = (int) (Math.ceil(maxClientSize * 1.0 / valueComboBox)
+
+            );
+            System.out.println(totalPage);
+
+
+//       pages;
+            pagination.setPageCount(totalPage);
+            pagination.setCurrentPageIndex(0);
+            tableClients.setItems(FXCollections.observableArrayList(
+                    listClients.subList(pagination.getCurrentPageIndex(),newValue))
+            );
+
+//       pagination;
+                pagination.currentPageIndexProperty().addListener((obj1, oldValue1, newValue1) -> {
+                    try {
+                    tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
+                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, valueComboBox * (newValue1.intValue() + 1)))
+                    );
+
+            } catch (IndexOutOfBoundsException exception) {
+                    tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
+                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, maxClientSize))
+                    );
+
+            }
+        });
+        });
     }
 
-    public void showPersonDetail(Client client){
-    }
+
+
+
+
+
+
 
     public void initClients(){
         DaoImpl<Client, Integer> daoClients = new ServiceDaoImpClient(factory);
         listClients.addAll(daoClients.readAll());
     }
 
-    public void cutRows(){
-        for (int i = 0; i < listClients.size(); i++) {
-            listClients.remove(i--);
-        }
 
-        initClients();
-
-        for (int i = quantityRows.getValue(); i < listClients.size(); i++) {
-            listClients.remove(i--);
-        }
-
-    }
 
     public void buttonRegNewClient() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/view/registrationNewClient.fxml"));
@@ -154,11 +185,6 @@ public class ControllerMainWindow {
     }
 
 
-
-    public void buttonQuantityRows(){
-        cutRows();
-        labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
-    }
 
     public void buttonAllRows(){
         for (int i = 0; i < listClients.size(); i++) {
@@ -175,7 +201,6 @@ public class ControllerMainWindow {
         daoClient.delete(client);
 
         System.out.println(tableClients.getSelectionModel().getSelectedItem().getId());
-        cutRows();
         labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
     }
 

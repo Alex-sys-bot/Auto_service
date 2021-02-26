@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1288.0" style="-fx-background-color: (255, 255, 225);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.ControllerMainWindow">
    <children>
-      <TableView fx:id="tableClients" layoutY="38.0" prefHeight="511.0" prefWidth="1035.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0">
+      <TableView fx:id="tableClients" layoutY="38.0" prefHeight="562.0" prefWidth="1035.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="35.0" text="ID" />
           <TableColumn fx:id="columnLastName" prefWidth="72.0" text="Фамилия" />
@@ -34,7 +34,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ComboBox fx:id="quantityRows" layoutX="31.0" layoutY="330.0" onAction="#buttonQuantityRows" prefHeight="25.0" prefWidth="153.0" promptText="Кол-во записей:" style="-fx-background-color: orange;" />
+            <ComboBox fx:id="quantityRows" layoutX="31.0" layoutY="330.0" prefHeight="25.0" prefWidth="153.0" promptText="Кол-во записей:" style="-fx-background-color: orange;" />
             <Button layoutX="31.0" layoutY="365.0" mnemonicParsing="false" onAction="#buttonAllRows" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: orange;" text="Показать все записи" />
             <Label layoutX="31.0" layoutY="402.0" prefHeight="20.0" prefWidth="153.0" style="-fx-text-fill: Tw Cen MT;" text="Колличествов записей:">
                <font>
@@ -50,5 +50,6 @@
          </children>
       </Pane>
       <Label fx:id="labelID" layoutX="14.0" layoutY="569.0" opacity="0.0" prefHeight="17.0" prefWidth="31.0" />
+      <Pagination fx:id="pagination" layoutX="544.0" layoutY="601.0" prefHeight="45.0" prefWidth="236.0" />
    </children>
 </AnchorPane>
