@@ -49,7 +49,12 @@
             </Button>
          </children>
       </Pane>
-      <Label fx:id="labelID" layoutX="14.0" layoutY="569.0" opacity="0.0" prefHeight="17.0" prefWidth="31.0" />
       <Pagination fx:id="pagination" layoutX="544.0" layoutY="601.0" prefHeight="45.0" prefWidth="236.0" />
+      <TextField fx:id="txtSearch" layoutX="366.0" layoutY="10.0" prefHeight="25.0" prefWidth="356.0" />
+      <Label layoutX="297.0" layoutY="13.0" prefHeight="17.0" prefWidth="69.0" text="Поиск">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

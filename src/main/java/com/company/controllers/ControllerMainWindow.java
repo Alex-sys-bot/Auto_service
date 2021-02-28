@@ -8,6 +8,8 @@ import com.company.service.ServiceDaoImpClientService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,17 +29,14 @@ import java.util.Set;
 public class ControllerMainWindow {
 
     ObservableList<Client> listClients = FXCollections.observableArrayList();
-
     private int maxClientSize;
-
+    private int totalPage;
     private final SessionFactory factory;
 
     public ControllerMainWindow() {
         factory = new Configuration().configure().buildSessionFactory();
     }
 
-    @FXML
-    private Label labelID;
 
     @FXML
     private TableView<Client> tableClients;
@@ -84,7 +83,8 @@ public class ControllerMainWindow {
     @FXML
     private ComboBox<Integer> quantityRows;
 
-    private int totalPage;
+    @FXML TextField txtSearch;
+
 
 
     public void initialize(){
@@ -115,12 +115,12 @@ public class ControllerMainWindow {
         });
 
 
+
 //        comboBox;
-        ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200,listClients.size());
+        ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200);
         maxClientSize = listClients.size();
         quantityRows.setItems(listQuantityRows);
         quantityRows.setValue(listQuantityRows.get(0));
-
 
 
         quantityRows.valueProperty().addListener((obj, oldValue, newValue) -> {
@@ -129,40 +129,67 @@ public class ControllerMainWindow {
                 quantityRows.setValue(listClients.size());
                 newValue = listClients.size();
             }
-            totalPage = (int) (Math.ceil(maxClientSize * 1.0 / valueComboBox)
-
-            );
-            System.out.println(totalPage);
+            totalPage = (int) (Math.ceil(maxClientSize * 1.0 / valueComboBox));
 
 
 //       pages;
             pagination.setPageCount(totalPage);
             pagination.setCurrentPageIndex(0);
             tableClients.setItems(FXCollections.observableArrayList(
-                    listClients.subList(pagination.getCurrentPageIndex(),newValue))
-            );
+                    listClients.subList(pagination.getCurrentPageIndex(),newValue)));
 
 //       pagination;
                 pagination.currentPageIndexProperty().addListener((obj1, oldValue1, newValue1) -> {
                     try {
                     tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
-                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, valueComboBox * (newValue1.intValue() + 1)))
-                    );
+                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, valueComboBox * (newValue1.intValue() + 1))));
 
             } catch (IndexOutOfBoundsException exception) {
                     tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
-                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, maxClientSize))
-                    );
+                            valueComboBox * (newValue1.intValue() + 1) - valueComboBox, maxClientSize)));
 
-            }
+                }
+            });
         });
-        });
+
+        searchClient();
     }
 
 
+    public void searchClient(){
+//        change observableList to filteredList and show all
+        FilteredList<Client> filterList = new FilteredList<>(listClients, p -> true);
 
+//         listener
+        txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            filterList.setPredicate(client -> {
 
+//                check for null;
+                if (newValue == null || newValue.isEmpty()){
+                    return true;
+                }
 
+//                save value for checking;
+                String lowerCaseFilter = newValue.toLowerCase();
+
+//                checking for firstName, lastName and patronymic;
+                if (client.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                } else if (client.getLastName().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                } else if (client.getPatronymic().toLowerCase().contains(lowerCaseFilter)){
+                   return true;
+                }
+                return false;
+            });
+        });
+
+//        change SortedList to filterList
+        SortedList<Client> sortedList = new SortedList<>(filterList);
+        sortedList.comparatorProperty().bind(tableClients.comparatorProperty());
+        tableClients.setItems(sortedList);
+
+    }
 
 
 
@@ -170,8 +197,6 @@ public class ControllerMainWindow {
         DaoImpl<Client, Integer> daoClients = new ServiceDaoImpClient(factory);
         listClients.addAll(daoClients.readAll());
     }
-
-
 
     public void buttonRegNewClient() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/view/registrationNewClient.fxml"));
@@ -184,24 +209,15 @@ public class ControllerMainWindow {
         stage.showAndWait();
     }
 
-
-
     public void buttonAllRows(){
         for (int i = 0; i < listClients.size(); i++) {
             listClients.remove(i--);
         }
-        initClients();
+        initialize();
         labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
     }
 
     public void buttonDelete(){
-        DaoImpl<Client, Integer> daoClient = new ServiceDaoImpClient(factory);
-        Client client = new Client();
-        client.setId(tableClients.getSelectionModel().getSelectedItem().getId());
-        daoClient.delete(client);
-
-        System.out.println(tableClients.getSelectionModel().getSelectedItem().getId());
-        labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
     }
 
 }
