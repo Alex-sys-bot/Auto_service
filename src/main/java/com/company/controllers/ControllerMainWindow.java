@@ -85,16 +85,23 @@ public class ControllerMainWindow {
 
     @FXML TextField txtSearch;
 
+    @FXML Button buttonDeleteFX;
+
+    @FXML Button buttonRegNewClientFX;
 
 
     public void initialize(){
-        if (ControllerWindowSignIn.role.equals("user")){
-
+        if (ControllerAutorisation.role.equals("user")){
+            buttonDeleteFX.setVisible(false);
+            buttonRegNewClientFX.setVisible(false);
         }
+
         initClients();
         maxClientSize = listClients.size();
 
         tableClients.setItems(listClients);
+        searchClient(listClients);
+
         columnID.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
         columnFirstName.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getFirstName()));
         columnLastName.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getLastName()));
@@ -117,11 +124,10 @@ public class ControllerMainWindow {
                 return new SimpleObjectProperty<>("");
         });
 
-        searchClient(listClients);
 
 
 //        comboBox;
-        ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200);
+        ObservableList<Integer> listQuantityRows = FXCollections.observableArrayList(10,50,200, maxClientSize);
         maxClientSize = listClients.size();
         quantityRows.setItems(listQuantityRows);
         quantityRows.setValue(listQuantityRows.get(0));
@@ -195,8 +201,6 @@ public class ControllerMainWindow {
         tableClients.setItems(sortedList);
     }
 
-
-
     public void initClients(){
         DaoImpl<Client, Integer> daoClients = new ServiceDaoImpClient(factory);
         listClients.addAll(daoClients.readAll());
@@ -217,7 +221,9 @@ public class ControllerMainWindow {
         for (int i = 0; i < listClients.size(); i++) {
             listClients.remove(i--);
         }
+
         initialize();
+
         labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
     }
 

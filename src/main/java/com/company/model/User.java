@@ -20,14 +20,19 @@ public class User {
     @Column(name = "login", nullable = false)
     private String login;
 
-    @Column(name = "pasword", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

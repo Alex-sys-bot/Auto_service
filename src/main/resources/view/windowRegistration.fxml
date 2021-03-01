@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="650.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.ControllerRegistration">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="220.0" style="-fx-text-fill: Tw Cen MT;" text="Регистрация пользователя">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtLogin" layoutX="234.0" layoutY="155.0" style="-fx-border-color: orange;" />
+      <TextField fx:id="txtPass" layoutX="234.0" layoutY="191.0" style="-fx-border-color: orange;" />
+      <Label layoutX="170.0" layoutY="158.0" prefHeight="17.0" prefWidth="61.0" style="-fx-text-fill: Tw Cen MT;" text="Логин:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="170.0" layoutY="194.0" prefHeight="17.0" prefWidth="61.0" style="-fx-text-fill: Tw Cen MT;" text="Пароль:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="170.0" layoutY="231.0" prefHeight="17.0" prefWidth="61.0" style="-fx-text-fill: Tw Cen MT;" text="Роль:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboRoles" layoutX="235.0" layoutY="229.0" prefWidth="150.0" promptText="Список ролей" style="-fx-background-color: orange; -fx-text-fill: Tw Cen MT;" />
+      <Button layoutX="200.0" layoutY="382.0" mnemonicParsing="false" onAction="#buttonAddUser" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: orange; -fx-text-fill: Tw Cen MT;" text="Добавить пользователя" />
+      <Pane layoutX="11.0" layoutY="556.0" prefHeight="80.0" prefWidth="524.0" style="-fx-background-color: beige; -fx-border-color: grey;">
+         <children>
+            <Label fx:id="labelStatus" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="499.0" />
+         </children>
+      </Pane>
+      <Button fx:id="buttonClose" layoutX="421.0" layoutY="39.0" mnemonicParsing="false" onAction="#ButtonBack" prefHeight="27.0" prefWidth="110.0" style="-fx-background-color: orange; -fx-text-fill: Tw Cen MT;" text="Вернутся" />
+   </children>
+</AnchorPane>

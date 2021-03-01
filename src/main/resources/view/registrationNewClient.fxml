@@ -62,7 +62,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="14.0" layoutY="555.0" opacity="0.49" prefHeight="82.0" prefWidth="520.0" style="-fx-background-color: beige; -fx-border-color: black;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+      <AnchorPane layoutX="14.0" layoutY="555.0" prefHeight="82.0" prefWidth="520.0" style="-fx-background-color: beige; -fx-border-color: black;" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Label fx:id="labelStatus" layoutX="21.0" layoutY="11.0" prefHeight="34.0" prefWidth="473.0">
                <font>

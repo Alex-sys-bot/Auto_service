@@ -18,7 +18,11 @@ public class ServiceDaoImplUser implements DaoImpl<User, Integer> {
 
     @Override
     public void create(User user) {
-
+        try (Session session = factory.openSession()){
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+        }
     }
 
     @Override
