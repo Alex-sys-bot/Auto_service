@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class ProgramStart extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/view/windowSignIn.fxml"));
         stage.setTitle("Auto service");
         stage.setScene(new Scene(parent));
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/logo.png")));

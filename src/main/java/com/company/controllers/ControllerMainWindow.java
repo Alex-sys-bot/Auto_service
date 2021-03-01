@@ -88,8 +88,11 @@ public class ControllerMainWindow {
 
 
     public void initialize(){
+        if (ControllerWindowSignIn.role.equals("user")){
+
+        }
         initClients();
-        labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
+        maxClientSize = listClients.size();
 
         tableClients.setItems(listClients);
         columnID.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
@@ -114,6 +117,7 @@ public class ControllerMainWindow {
                 return new SimpleObjectProperty<>("");
         });
 
+        searchClient(listClients);
 
 
 //        comboBox;
@@ -125,10 +129,12 @@ public class ControllerMainWindow {
 
         quantityRows.valueProperty().addListener((obj, oldValue, newValue) -> {
             int valueComboBox = quantityRows.getValue();
+
             if (quantityRows.getValue() > listClients.size()){
                 quantityRows.setValue(listClients.size());
                 newValue = listClients.size();
             }
+
             totalPage = (int) (Math.ceil(maxClientSize * 1.0 / valueComboBox));
 
 
@@ -144,21 +150,20 @@ public class ControllerMainWindow {
                     tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
                             valueComboBox * (newValue1.intValue() + 1) - valueComboBox, valueComboBox * (newValue1.intValue() + 1))));
 
-            } catch (IndexOutOfBoundsException exception) {
+                    } catch (IndexOutOfBoundsException exception) {
                     tableClients.setItems(FXCollections.observableArrayList(listClients.subList(
                             valueComboBox * (newValue1.intValue() + 1) - valueComboBox, maxClientSize)));
 
-                }
-            });
+                        labelSizeListClients.setText(listClients.size() + "/" + maxClientSize);
+                    }
+                });
         });
-
-        searchClient();
     }
 
 
-    public void searchClient(){
+    public void searchClient(ObservableList<Client> list){
 //        change observableList to filteredList and show all
-        FilteredList<Client> filterList = new FilteredList<>(listClients, p -> true);
+        FilteredList<Client> filterList = new FilteredList<>(list, p -> true);
 
 //         listener
         txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -186,9 +191,8 @@ public class ControllerMainWindow {
 
 //        change SortedList to filterList
         SortedList<Client> sortedList = new SortedList<>(filterList);
-        sortedList.comparatorProperty().bind(tableClients.comparatorProperty());
+//        sortedList.comparatorProperty().bind(tableClients.comparatorProperty());
         tableClients.setItems(sortedList);
-
     }
 
 

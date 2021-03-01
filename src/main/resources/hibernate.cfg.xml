@@ -17,5 +17,6 @@
         <mapping class="com.company.model.Gender"/>
         <mapping class="com.company.model.Service"/>
         <mapping class="com.company.model.ClientService"/>
+        <mapping class="com.company.model.User"/>
     </session-factory>
 </hibernate-configuration>
