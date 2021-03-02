@@ -71,8 +71,6 @@ public class ControllerRegistration {
         DaoImpl<User, Integer> daoUser = new ServiceDaoImplUser(factory);
         User user = new User();
 
-//        labelStatus.setText("Пользователь с таким логином уже существует");
-//        labelStatus.setText("Пользователь" +  " " + txtLogin.getText() + " " + "создан");
 
         for (User user1: listUsers) {
             if (user1.getLogin().equals(txtLogin.getText())){

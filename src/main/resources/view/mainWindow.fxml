@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1288.0" style="-fx-background-color: (255, 255, 225);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.ControllerMainWindow">
    <children>
-      <TableView fx:id="tableClients" layoutY="38.0" prefHeight="562.0" prefWidth="1035.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0">
+      <TableView fx:id="tableClients" layoutX="23.0" layoutY="104.0" prefHeight="482.0" prefWidth="1038.0" style="-fx-background-color: RAL 9010;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="104.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="35.0" text="ID" />
           <TableColumn fx:id="columnLastName" prefWidth="72.0" text="Фамилия" />
@@ -21,13 +21,16 @@
             <TableColumn fx:id="columnCountDate" minWidth="0.0" prefWidth="151.0" text="Количество посещений" />
             <TableColumn fx:id="columnTegs" minWidth="0.0" prefWidth="60.0" text="Теги" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Label layoutX="14.0" layoutY="9.0" style="-fx-text-fill: Tw Cen MT;" text="Клиенты">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Pane layoutX="1074.0" layoutY="38.0" prefHeight="493.0" prefWidth="200.0" style="-fx-background-color: RAL 9010; -fx-border-color: orange;" AnchorPane.rightAnchor="14.0">
+      <Pane layoutX="1074.0" layoutY="104.0" prefHeight="436.0" prefWidth="200.0" style="-fx-background-color: RAL 9010;" AnchorPane.leftAnchor="1074.0" AnchorPane.rightAnchor="14.0">
          <children>
             <Button fx:id="buttonRegNewClientFX" layoutX="5.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonRegNewClient" prefHeight="40.0" prefWidth="191.0" style="-fx-background-color: orange;" text="Зарегистрировать клиента">
                <font>
@@ -49,12 +52,14 @@
             </Button>
          </children>
       </Pane>
-      <Pagination fx:id="pagination" layoutX="544.0" layoutY="601.0" prefHeight="45.0" prefWidth="236.0" />
-      <TextField fx:id="txtSearch" layoutX="366.0" layoutY="10.0" prefHeight="25.0" prefWidth="356.0" />
-      <Label layoutX="297.0" layoutY="13.0" prefHeight="17.0" prefWidth="69.0" text="Поиск">
+      <Pagination fx:id="pagination" layoutX="424.0" layoutY="555.0" prefHeight="25.0" prefWidth="236.0" AnchorPane.bottomAnchor="0.0" />
+      <TextField fx:id="txtSearch" layoutX="366.0" layoutY="36.0" prefHeight="25.0" prefWidth="356.0" style="-fx-border-color: orange;" />
+      <Label layoutX="297.0" layoutY="39.0" prefHeight="17.0" prefWidth="69.0" text="Поиск">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <ComboBox fx:id="comboCriteria" layoutX="117.0" layoutY="36.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по критериям" style="-fx-background-color: orange;" />
+      <ComboBox fx:id="comboGender" layoutX="117.0" layoutY="72.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по полу" style="-fx-background-color: orange;" />
    </children>
 </AnchorPane>
