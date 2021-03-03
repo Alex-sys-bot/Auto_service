@@ -61,5 +61,6 @@
       </Label>
       <ComboBox fx:id="comboCriteria" layoutX="117.0" layoutY="36.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по критериям" style="-fx-background-color: orange;" />
       <ComboBox fx:id="comboGender" layoutX="117.0" layoutY="72.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по полу" style="-fx-background-color: orange;" />
+      <Button layoutX="909.0" layoutY="35.0" mnemonicParsing="false" onAction="#exportPDF" prefHeight="27.0" prefWidth="125.0" style="-fx-background-color: orange;" text="Сохранить в PDF" />
    </children>
 </AnchorPane>

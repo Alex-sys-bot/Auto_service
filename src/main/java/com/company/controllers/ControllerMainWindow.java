@@ -8,6 +8,11 @@ import com.company.model.Gender;
 import com.company.service.ServiceDaoImpClient;
 import com.company.service.ServiceDaoImpClientService;
 import com.company.service.ServiceDaoImplGender;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfException;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +23,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
@@ -233,7 +240,7 @@ public class ControllerMainWindow {
         Parent parent = FXMLLoader.load(getClass().getResource("/view/registrationNewClient.fxml"));
         Stage stage = new Stage();
         stage.setTitle("Registration new client");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/logo.png")));
+        stage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/logo.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.setScene(new Scene(parent));
@@ -251,6 +258,52 @@ public class ControllerMainWindow {
     }
 
     public void buttonDelete(){
+    }
+
+
+    public void exportPDF() throws IOException, DocumentException {
+        String pathFile = "test.pdf";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(pathFile));
+
+        document.open();
+//        paragraph;
+        Paragraph paragraph = new Paragraph("Hello");
+        paragraph.setAlignment(Element.ALIGN_CENTER);
+        paragraph.setSpacingAfter(20);
+        document.add(paragraph);
+
+//        add Image;
+//        Image image = Image.getInstance("/images/head.png");
+//        image.scaleAbsoluteHeight(70);
+//        image.scaleAbsoluteWidth(130);
+//        image.setAlignment(Element.ALIGN_RIGHT);
+
+
+//        create table;
+        int quantityColumn = tableClients.getColumns().size();
+        PdfPTable table = new PdfPTable(quantityColumn);
+        ObservableList<TableColumn<Client, ?>> columns = tableClients.getColumns();
+        columns.forEach(c -> new PdfPCell(new Phrase(c.getText())));
+
+        for (TableColumn<Client, ?> column: columns) {
+            table.addCell(new PdfPCell(new Phrase(column.getText())));
+            System.out.println(column.toString());
+        }
+        table.setHeaderRows(1);
+
+
+        for (int i = 0; i < tableClients.getItems().size(); i++) {
+            table.addCell(new PdfPCell(new Phrase(tableClients.getItems().get(i).getId())));
+            table.addCell(new PdfPCell(new Phrase(tableClients.getItems().get(i).getFirstName())));
+
+        }
+
+        document.add(table);
+
+
+
+        document.close();
     }
 
 }
