@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1288.0" style="-fx-background-color: (255, 255, 225);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.controllers.ControllerMainWindow">
    <children>
-      <TableView fx:id="tableClients" layoutX="23.0" layoutY="104.0" prefHeight="482.0" prefWidth="1038.0" style="-fx-background-color: RAL 9010;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="104.0">
+      <TableView fx:id="tableClients" layoutX="12.0" layoutY="104.0" prefHeight="436.0" prefWidth="1051.0" style="-fx-background-color: RAL 9010;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="104.0">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="35.0" text="ID" />
           <TableColumn fx:id="columnLastName" prefWidth="72.0" text="Фамилия" />
@@ -15,11 +15,9 @@
             <TableColumn fx:id="columnBirthday" prefWidth="127.0" text="Дата рождения" />
             <TableColumn fx:id="columnPhone" prefWidth="69.0" text="Телефон" />
             <TableColumn fx:id="columnEmail" prefWidth="59.0" text="Email" />
-            <TableColumn fx:id="columnDateReg" prefWidth="111.0" text="Дата добавления" />
-            <TableColumn fx:id="columnLastDate" prefWidth="189.0" text="Дата последнего посещения" />
-            <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
-            <TableColumn fx:id="columnCountDate" minWidth="0.0" prefWidth="151.0" text="Количество посещений" />
-            <TableColumn fx:id="columnTegs" minWidth="0.0" prefWidth="60.0" text="Теги" />
+            <TableColumn fx:id="columnDateReg" prefWidth="114.0" text="Дата добавления" />
+            <TableColumn fx:id="columnLastDate" prefWidth="113.0" text="Дата последнего посещения" />
+            <TableColumn fx:id="columnCountDate" minWidth="0.0" prefWidth="73.0" text="Количество посещений" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -62,5 +60,6 @@
       <ComboBox fx:id="comboCriteria" layoutX="117.0" layoutY="36.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по критериям" style="-fx-background-color: orange;" />
       <ComboBox fx:id="comboGender" layoutX="117.0" layoutY="72.0" prefHeight="25.0" prefWidth="160.0" promptText="Поиск по полу" style="-fx-background-color: orange;" />
       <Button layoutX="909.0" layoutY="35.0" mnemonicParsing="false" onAction="#exportPDF" prefHeight="27.0" prefWidth="125.0" style="-fx-background-color: orange;" text="Сохранить в PDF" />
+      <Button layoutX="909.0" layoutY="72.0" mnemonicParsing="false" onAction="#exportExel" prefHeight="27.0" prefWidth="125.0" style="-fx-background-color: orange;" text="Сохранить в Exel" />
    </children>
 </AnchorPane>
